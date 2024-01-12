@@ -5,11 +5,13 @@ class ListScreen extends StatefulWidget {
 
   @override
   State<ListScreen> createState() => _ListScreenState();
-
-  final int _hundred = 100;
 }
 
 class _ListScreenState extends State<ListScreen> {
+  List int = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  //list.generate 100번 수행한다
+  //for는 100번 만들어준다
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,6 @@ class _ListScreenState extends State<ListScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      print('출력되나?');
                       const int = 100;
                     },
                     child: Text(
@@ -36,8 +37,15 @@ class _ListScreenState extends State<ListScreen> {
             ),
             Expanded(
               child: Container(
+                //listview로 해보자
+                child: ListView.builder(
+                  itemCount: int.length,
+                  itemBuilder: (context, index) {
+                    return Text('${int[index]}');
+                  },
+                ),
                 width: double.infinity,
-                height: 100,//100인데 expanded해서 공간을 다 차지했나?
+                height: 100, //100인데 expanded해서 공간을 다 차지했나?
                 color: Colors.yellow,
               ),
             )
