@@ -34,6 +34,13 @@ class _DetailScreenState extends State<DetailScreen> {
             child: const Text('함수 호출'),
           ),
           BottomContainer(_bottomColor),
+          ElevatedButton(
+            onPressed: () {
+              // 앞 화면으로 전달
+              Navigator.pop(context, _bottomColor);
+            },
+            child: const Text('돌려주기'),
+          ),
         ],
       ),
     );

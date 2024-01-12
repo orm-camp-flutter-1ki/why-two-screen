@@ -20,12 +20,16 @@ class _MainScreenState extends State<MainScreen> {
         title: const Text('Main Screen'),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               // 다른 화면
-              Navigator.push(
+              Color returnColor = await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => DetailScreen(_color)),
               );
+
+              setState(() {
+                _color = returnColor;
+              });
             },
             icon: const Icon(Icons.add),
           ),
