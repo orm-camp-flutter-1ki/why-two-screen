@@ -33,10 +33,10 @@ class _ListScreenState extends State<ListScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        setState(() {
+                        // setState(() {
                           inputText = value;
                           // print('text = $inputText');
-                        });
+                        // });
                       },
                       decoration: InputDecoration(
                         hintText: 'text',
@@ -53,7 +53,7 @@ class _ListScreenState extends State<ListScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        inputNumber = int.parse(value);
+                        inputNumber = int.tryParse(value) ?? 0;
                         // print('text = $inputNumber');
                       },
                       decoration: InputDecoration(
