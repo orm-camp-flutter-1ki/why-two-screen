@@ -1,19 +1,30 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 
-class ListScreen extends StatefulWidget {
-  ListScreen({super.key});
+class ListScreen extends StatefulWidget {//statefulwidget에서 가져오면 widget으로 시작
+  ListScreen({super.key});//외부에서 생성자를 통해서 데이터를 받고 싶을때, 중괄호뒤에는 쉼표가 안된다
+
 
   @override
   State<ListScreen> createState() => _ListScreenState();
 }
 
 class _ListScreenState extends State<ListScreen> {
-  List int = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  List<int> result = [];
+
+  List<int> generate() {
+    List<int> resultInt = List.generate(100, (index) => index + 1);
+    return resultInt;
+  }
+
+  //List intList = [];
   //list.generate 100번 수행한다
   //for는 100번 만들어준다
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -25,7 +36,11 @@ class _ListScreenState extends State<ListScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      const int = 100;
+                      setState(() {
+                        result.addAll(generate());
+
+                        print(result); //타입을 쓰면 새로 변수가 새로 만들어진다
+                      });
                     },
                     child: Text(
                       '출력',
@@ -36,19 +51,26 @@ class _ListScreenState extends State<ListScreen> {
               ),
             ),
             Expanded(
-              child: Container(
-                //listview로 해보자
-                child: ListView.builder(
-                  itemCount: int.length,
-                  itemBuilder: (context, index) {
-                    return Text('${int[index]}');
-                  },
-                ),
-                width: double.infinity,
-                height: 100, //100인데 expanded해서 공간을 다 차지했나?
-                color: Colors.yellow,
+              child: ListView.builder(
+                //그려졌는데 다시 추가되지는 않는다
+                itemCount: result.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 15,
+                    width: double.infinity,
+                    child: Center(
+                      child: Text(
+                        '${result[index]}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
-            )
+            ),
           ],
         ),
       ),
