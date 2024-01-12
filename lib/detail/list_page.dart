@@ -14,15 +14,57 @@ class _ListPageState extends State<ListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('리스트페이지'),
+        // title: Text('리스트페이지'),
         actions: [
-          ElevatedButton(
+          SizedBox(
+            width: 40,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ElevatedButton(
               onPressed: () {
-                setState(() {
-                  getNumberList = getList();
-                });
+                setState(
+                  () {
+                    getNumberList = getList();
+                  },
+                );
               },
-              child: Text('출력'))
+              child: Text('출력'),
+            ),
+          )
         ],
       ),
       body: Padding(
@@ -53,6 +95,6 @@ class _ListPageState extends State<ListPage> {
 }
 
 List<int> getList() {
-  List<int> myList = List.generate(100, (index) => index+1);
+  List<int> myList = List.generate(100, (index) => index + 1);
   return myList;
 }
