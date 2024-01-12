@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../list_screen/list_screen.dart';
+
 class DetailScreen extends StatefulWidget {
   final Color color;
 
@@ -22,6 +24,18 @@ class _DetailScreenState extends State<DetailScreen> {
           '다음 화면',
           style: TextStyle(color: widget.color),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              // 다른 화면
+              Color returnColor = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ListScreen()),
+              );
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -42,6 +56,7 @@ class _DetailScreenState extends State<DetailScreen> {
             child: const Text('돌려주기'),
           ),
         ],
+
       ),
     );
   }

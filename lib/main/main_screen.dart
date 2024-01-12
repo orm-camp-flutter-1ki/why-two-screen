@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:why_two_screen/detail/detail_screen.dart';
+import 'package:why_two_screen/list_screen/list_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
