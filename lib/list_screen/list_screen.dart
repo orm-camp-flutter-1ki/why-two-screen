@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -8,39 +9,71 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  int numbers = 0;
+  String valueString = '';
+  int count = 0;
+  final valueTextEditingController = TextEditingController();
+  final countTextEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    valueTextEditingController.dispose();
+    countTextEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('List Screen'),
+        title: const Text('출력화면'),
       ),
       body: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    numbers = 100;
-                  });
-                },
-                child: const Text('출력'),
+              SizedBox(
+                height: 40,
+                width: 100,
+                child: TextFormField(
+                  controller: valueTextEditingController,
+                  decoration: const InputDecoration(hintText: '값 입력'),
+                ),
               ),
+              SizedBox(
+                height: 40,
+                width: 100,
+                child: TextFormField(
+                  controller: countTextEditingController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: const InputDecoration(hintText: '갯수 입력',),
+                ),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    // valueString.clear();
+                    setState(() {
+                      valueString = (valueTextEditingController.text);
+                      count = int.tryParse(countTextEditingController.text) ?? 0;
+                    });
+                  },
+                  child: const Text('출력')),
             ],
           ),
           Expanded(
-            child: SizedBox(
+            child: Container(
               child: ListView.builder(
-                itemCount: numbers,
-                itemBuilder: (BuildContext context, int index) {
-                  return Text('${index + 1}');
+                itemCount: count,
+                itemBuilder: (context, index) {
+                  return  ListTile(
+                    title: Text(valueString),
+                    subtitle: Text('${index + 1}'),
+                  );
                 },
               ),
             ),
-          )
+          ),
         ],
       ),
     );
