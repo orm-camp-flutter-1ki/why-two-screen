@@ -22,6 +22,13 @@ class _DetailScreenState extends State<DetailScreen> {
           '다음 화면',
           style: TextStyle(color: widget.color),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+            },
+            icon: const Icon(Icons.list),
+          ),
+        ],
       ),
       body: Column(
         children: [
