@@ -18,6 +18,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           '다음 화면',
           style: TextStyle(color: widget.color),
