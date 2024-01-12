@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:why_two_screen/ui/detail/detail_screen.dart';
@@ -14,10 +15,16 @@ final router = GoRouter(
         child: const MainScreen(),
       ),
     ),
-    GoRoute(path: '/detailScreen',
-    builder: (context, state) => ChangeNotifierProvider(
-      create: (_) => DetailViewModel(),
-      child: const DetailScreen(color),
-    ))
+    GoRoute(
+      path: '/detailScreen',
+      builder: (context, state) {
+        final color = state.extra as Color;
+
+        return ChangeNotifierProvider(
+          create: (_) => DetailViewModel(),
+          child: DetailScreen(color),
+        );
+      },
+    ),
   ],
 );
