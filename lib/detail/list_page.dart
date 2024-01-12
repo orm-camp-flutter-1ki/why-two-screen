@@ -8,7 +8,24 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  List<int> getNumberList = [];
+  List<dynamic> getNumberList = ['안녕', 0];
+
+  final textEditingController1 = TextEditingController();
+  final textEditingController2 = TextEditingController();
+
+  List<dynamic> getQuery(String a, String b) {
+    String word = a;
+    int count = int.parse(b);
+    List<dynamic> queryList = [word, count];
+    return queryList;
+  }
+
+  @override
+  void dispose() {
+    textEditingController1.dispose();
+    textEditingController2.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +40,9 @@ class _ListPageState extends State<ListPage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: textEditingController1,
                 decoration: InputDecoration(
+                  hintText: '글자',
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(width: 1, color: Colors.black),
@@ -40,7 +59,9 @@ class _ListPageState extends State<ListPage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: textEditingController2,
                 decoration: InputDecoration(
+                  hintText: '갯수',
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(width: 1, color: Colors.black),
@@ -58,7 +79,8 @@ class _ListPageState extends State<ListPage> {
               onPressed: () {
                 setState(
                   () {
-                    getNumberList = getList();
+                    getNumberList = getQuery(textEditingController1.text,
+                        textEditingController2.text);
                   },
                 );
               },
@@ -76,10 +98,10 @@ class _ListPageState extends State<ListPage> {
             border: Border.all(color: Colors.black),
           ),
           child: ListView.builder(
-              itemCount: getNumberList.length,
+              itemCount: getNumberList[1],
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text('${getNumberList[index]}'),
+                  title: Text('${getNumberList[0]}'),
                 );
               }),
           // child: ListView.builder(
@@ -94,7 +116,7 @@ class _ListPageState extends State<ListPage> {
   }
 }
 
-List<int> getList() {
-  List<int> myList = List.generate(100, (index) => index + 1);
-  return myList;
-}
+// List<int> getList() {
+//   List<int> myList = List.generate(100, (index) => index + 1);
+//   return myList;
+// }
