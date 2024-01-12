@@ -18,6 +18,12 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.navigate_next),
+          ),
+        ],
         centerTitle: true,
         title: Text(
           '다음 화면',
