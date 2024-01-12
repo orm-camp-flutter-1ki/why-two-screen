@@ -9,13 +9,17 @@ class ListScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {
-            },
+            onPressed: () {},
             icon: const Icon(Icons.list_alt),
           ),
         ],
       ),
-      body: Container(),
+      body: ListView.builder(
+        itemCount: 100,
+        itemBuilder: (context, index) {
+          return Text('$index');
+        },
+      ),
     );
   }
 }
