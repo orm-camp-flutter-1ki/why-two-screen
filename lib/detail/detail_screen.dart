@@ -1,6 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:why_two_screen/detail/list_screen.dart';
+
+import 'print_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final Color color;
@@ -22,6 +24,14 @@ class _DetailScreenState extends State<DetailScreen> {
           '다음 화면',
           style: TextStyle(color: widget.color),
         ),
+        actions:  [
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen()));
+          }, child: const Text('page1')),
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PrintScreen()));
+          }, child: const Text('page2')),
+        ]
       ),
       body: Column(
         children: [
