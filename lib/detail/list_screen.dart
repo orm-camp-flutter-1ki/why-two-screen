@@ -14,11 +14,19 @@ class ListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: 100,
-        itemBuilder: (context, index) {
-          return Text('$index');
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black)
+          ),
+          child: ListView.builder(
+            itemCount: 99,
+            itemBuilder: (context, index) {
+              return Text('${index+1}');
+            },
+          ),
+        ),
       ),
     );
   }
