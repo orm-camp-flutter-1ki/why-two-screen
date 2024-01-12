@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/detail/list_screen.dart';
+import 'package:why_two_screen/ui/detail/list_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final Color color;

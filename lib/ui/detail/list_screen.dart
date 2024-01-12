@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/widget/list_number.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -34,8 +33,8 @@ class _ListScreenState extends State<ListScreen> {
                     child: TextField(
                       onChanged: (value) {
                         // setState(() {
-                          inputText = value;
-                          // print('text = $inputText');
+                        inputText = value;
+                        // print('text = $inputText');
                         // });
                       },
                       decoration: InputDecoration(
