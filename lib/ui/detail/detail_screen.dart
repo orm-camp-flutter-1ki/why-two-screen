@@ -1,6 +1,7 @@
 import 'dart:math';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:why_two_screen/ui/detail/detail_view_model.dart';
 import 'package:why_two_screen/ui/detail/list_screen.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -13,10 +14,12 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  Color _bottomColor = Colors.white;
+
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<DetailViewModel>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -42,16 +45,16 @@ class _DetailScreenState extends State<DetailScreen> {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                _bottomColor = getRandomColor();
+                viewModel.bottomColor = getRandomColor();
               });
             },
             child: const Text('함수 호출'),
           ),
-          BottomContainer(_bottomColor),
+          BottomContainer(viewModel.bottomColor),
           ElevatedButton(
             onPressed: () {
               // 앞 화면으로 전달
-              Navigator.pop(context, _bottomColor);
+              Navigator.pop(context, viewModel.bottomColor);
             },
             child: const Text('돌려주기'),
           ),
