@@ -8,20 +8,19 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  // List<ListNumber> numberWidgets = [];
-
   String inputText = '';
+  final textController = TextEditingController();
   int inputNumber = 0;
 
-  // void printNumber() {
-  //   // numberWidgets =
-  //   //     List.generate(100, (index) => ListNumber(number: index + 1));
-  // }
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -31,12 +30,10 @@ class _ListScreenState extends State<ListScreen> {
                 children: [
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {
-                        // setState(() {
-                        inputText = value;
-                        // print('text = $inputText');
-                        // });
-                      },
+                      controller: textController,
+                      // onChanged: (value) {
+                      //   inputText = value;
+                      // },
                       decoration: InputDecoration(
                         hintText: 'text',
                         enabledBorder: OutlineInputBorder(
@@ -53,7 +50,6 @@ class _ListScreenState extends State<ListScreen> {
                     child: TextField(
                       onChanged: (value) {
                         inputNumber = int.tryParse(value) ?? 0;
-                        // print('text = $inputNumber');
                       },
                       decoration: InputDecoration(
                         hintText: 'number',
@@ -69,7 +65,7 @@ class _ListScreenState extends State<ListScreen> {
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        //   // printNumber();
+                        inputText = textController.text;
                       });
                     },
                     child: const Text(
@@ -81,14 +77,12 @@ class _ListScreenState extends State<ListScreen> {
               ),
               const SizedBox(height: 20),
               Expanded(
-                // child: ListView(
-                //   children: numberWidgets,
-                // ),
                 child: ListView.builder(
-                    itemCount: inputNumber,
-                    itemBuilder: (context, index) {
-                      return Text(inputText);
-                    }),
+                  itemCount: inputNumber,
+                  itemBuilder: (context, index) {
+                    return Text(inputText);
+                  },
+                ),
               ),
             ],
           ),

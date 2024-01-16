@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:why_two_screen/ui/detail/detail_view_model.dart';
@@ -54,7 +55,8 @@ class _DetailScreenState extends State<DetailScreen> {
           ElevatedButton(
             onPressed: () {
               // 앞 화면으로 전달
-              Navigator.pop(context, viewModel.bottomColor);
+              // Navigator.pop(context, viewModel.bottomColor);
+              context.pop();
             },
             child: const Text('돌려주기'),
           ),
