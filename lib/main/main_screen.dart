@@ -20,6 +20,15 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: const Text('Main Screen'),
         actions: [
+          GestureDetector(
+            child: const Text('아버지'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ListScreen()),
+              );
+            },
+          ),
           IconButton(
             onPressed: () async {
               // 다른 화면

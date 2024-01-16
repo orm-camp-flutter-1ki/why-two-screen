@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -9,69 +8,79 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  String valueString = '';
-  int count = 0;
-  final valueTextEditingController = TextEditingController();
-  final countTextEditingController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _countController = TextEditingController();
+  List<String> _items = []; // List
+  bool _isLoading = false; // 로딩
 
   @override
   void dispose() {
-    valueTextEditingController.dispose();
-    countTextEditingController.dispose();
+    _nameController.dispose();
+    _countController.dispose();
     super.dispose();
+  }
+
+  Future<void> printFather() async {
+    setState(() {
+      // 로딩 3초 하고
+      _isLoading = true;
+      _items = [];
+    });
+
+    // 미래에 3초 후에 끝날 동작
+    await Future.delayed(const Duration(seconds: 3));
+
+    // 결과 보여주자
+    setState(() {
+      _isLoading = false;
+
+      final int count = int.tryParse(_countController.text) ?? 0;
+
+      for (int i = 0; i < count; i++) {
+        _items.add(_nameController.text);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('출력화면'),
+        title: const Text('아버지가 3명'),
       ),
       body: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(
-                height: 40,
-                width: 100,
-                child: TextFormField(
-                  controller: valueTextEditingController,
-                  decoration: const InputDecoration(hintText: '값 입력'),
+              Expanded(
+                child: TextField(
+                  controller: _nameController,
                 ),
               ),
-              SizedBox(
-                height: 40,
-                width: 100,
-                child: TextFormField(
-                  controller: countTextEditingController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: const InputDecoration(hintText: '갯수 입력',),
+              Expanded(
+                child: TextField(
+                  controller: _countController,
                 ),
               ),
               ElevatedButton(
-                  onPressed: () {
-                    // valueString.clear();
-                    setState(() {
-                      valueString = (valueTextEditingController.text);
-                      count = int.tryParse(countTextEditingController.text) ?? 0;
-                    });
-                  },
-                  child: const Text('출력')),
+                onPressed: () {
+                  printFather();
+                },
+                child: const Text('출력'),
+              ),
             ],
           ),
-          Expanded(
-            child: Container(
-              child: ListView.builder(
-                itemCount: count,
-                itemBuilder: (context, index) {
-                  return  ListTile(
-                    title: Text(valueString),
-                    subtitle: Text('${index + 1}'),
-                  );
-                },
-              ),
+          _isLoading
+              ? const Center(
+            child: Text('로딩'),
+          )
+              : Expanded(
+            child: ListView(
+              children: _items
+                  .map((e) => ListTile(
+                title: Text(e),
+              ))
+                  .toList(),
             ),
           ),
         ],
