@@ -13,6 +13,27 @@ class _ListScreenState extends State<ListScreen> {
   final textController = TextEditingController();
   int inputNumber = 0;
 
+  bool isLoading = false;
+
+  List<String> allInputText = [];
+
+  Future<void> searchUrl() async {
+    // 로딩중입니다. 뜨기
+    setState(() {
+      isLoading = true;
+    });
+
+    // 3초 기다리기
+    await Future.delayed(const Duration(seconds: 3));
+    inputText = textController.text;
+    // 일반 변수에 await 사용 불가
+    // await allInputText.(textController.text);
+
+    // 로딩중입니다. 없애기
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void dispose() {
@@ -65,10 +86,11 @@ class _ListScreenState extends State<ListScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      setState(() {
-                        inputText = textController.text;
-                      });
+                    onPressed: () async {
+                      // setState(() {
+                      //   inputText = textController.text;
+                      // });
+                      await searchUrl();
                     },
                     child: const Text(
                       '출력',
@@ -78,17 +100,30 @@ class _ListScreenState extends State<ListScreen> {
                 ],
               ),
               const SizedBox(height: 20),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: inputNumber,
-                  itemBuilder: (context, index) {
-                    final imageItem = ImageItemWidget(imageUrl: textController.text);
+              isLoading
+                  ? const Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '로딩중입니다.',
+                            style: TextStyle(fontSize: 50),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: inputNumber,
+                        itemBuilder: (context, index) {
+                          final imageItem =
+                              ImageItemWidget(imageUrl: textController.text);
 
-                    // return Text(inputText);
-                    return imageItem;
-                  },
-                ),
-              ),
+                          // return Text(inputText);
+                          return imageItem;
+                        },
+                      ),
+                    ),
             ],
           ),
         ),
