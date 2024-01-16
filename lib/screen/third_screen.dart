@@ -37,7 +37,6 @@ class _ThirdScreenState extends State<ThirdScreen> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           children: [
             Row(
               children: [
