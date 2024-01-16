@@ -10,7 +10,8 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   final _nameController = TextEditingController();
   final _countController = TextEditingController();
-  List<String> _items = [];
+  List<String> _items = []; // List
+  bool _isLoading = false; // 로딩
 
   @override
   void dispose() {
@@ -19,13 +20,26 @@ class _ListScreenState extends State<ListScreen> {
     super.dispose();
   }
 
-  void printFather() {
-    final int count = int.tryParse(_countController.text) ?? 0;
+  Future<void> printFather() async {
+    setState(() {
+      // 로딩 3초 하고
+      _isLoading = true;
+      _items = [];
+    });
 
-    _items = [];
-    for (int i = 0; i < count; i++) {
-      _items.add(_nameController.text);
-    }
+    // 미래에 3초 후에 끝날 동작
+    await Future.delayed(const Duration(seconds: 3));
+
+    // 결과 보여주자
+    setState(() {
+      _isLoading = false;
+
+      final int count = int.tryParse(_countController.text) ?? 0;
+
+      for (int i = 0; i < count; i++) {
+        _items.add(_nameController.text);
+      }
+    });
   }
 
   @override
@@ -50,23 +64,25 @@ class _ListScreenState extends State<ListScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    printFather();
-                  });
+                  printFather();
                 },
                 child: const Text('출력'),
               ),
             ],
           ),
-          Expanded(
-            child: ListView(
-              children: _items
-                  .map((e) => ListTile(
-                        title: Text(e),
-                      ))
-                  .toList(),
-            ),
-          ),
+          _isLoading
+              ? const Center(
+                  child: Text('로딩'),
+                )
+              : Expanded(
+                  child: ListView(
+                    children: _items
+                        .map((e) => ListTile(
+                              title: Text(e),
+                            ))
+                        .toList(),
+                  ),
+                ),
         ],
       ),
     );
