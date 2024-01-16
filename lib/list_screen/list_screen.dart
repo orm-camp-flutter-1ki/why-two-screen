@@ -82,7 +82,15 @@ class _ListScreenState extends State<ListScreen> {
               ],
             ),
           ),
-
+          _isLoading ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                Text('로딩중 입니다'),
+              ],
+            ),
+          ) :
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
