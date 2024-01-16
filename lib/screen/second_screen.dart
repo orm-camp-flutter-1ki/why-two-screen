@@ -7,7 +7,7 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
-  List<int> numberList = [];
+  List<int> _numberList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _SecondScreenState extends State<SecondScreen> {
                 onPressed: () {
                   setState(
                     () {
-                      numberList = List.generate(100, (index) => index + 1);
+                      _numberList = List.generate(100, (index) => index + 1);
                     },
                   );
                 },
@@ -41,12 +41,12 @@ class _SecondScreenState extends State<SecondScreen> {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: numberList.length,
+              itemCount: _numberList.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Center(
                     child: Text(
-                      '${numberList[index]}',
+                      '${_numberList[index]}',
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),

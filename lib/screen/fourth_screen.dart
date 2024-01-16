@@ -8,16 +8,29 @@ class FourthScreen extends StatefulWidget {
 }
 
 class _FourthScreenState extends State<FourthScreen> {
-  TextEditingController nameEditingController = TextEditingController();
-  TextEditingController countEditingController = TextEditingController();
-  List<String> nameCounts = [];
-  List<String> imageUrl = [];
+  final TextEditingController _nameEditingController = TextEditingController();
+  final TextEditingController _countEditingController = TextEditingController();
+  List<String> _image = [];
+  bool _isloading = false;
 
   @override
   void dispose() {
-    nameEditingController.dispose();
-    countEditingController.dispose();
+    _nameEditingController.dispose();
+    _countEditingController.dispose();
     super.dispose();
+  }
+
+  Future<void> imageLoading() async {
+    setState(() {
+      _isloading = true;
+      _image = [];
+    });
+
+    await Future.delayed(const Duration(seconds: 10));
+
+    setState(() {
+      _isloading = false;
+    });
   }
 
   @override
@@ -40,7 +53,7 @@ class _FourthScreenState extends State<FourthScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
-                      controller: nameEditingController,
+                      controller: _nameEditingController,
                     ),
                   ),
                 ),
@@ -52,17 +65,18 @@ class _FourthScreenState extends State<FourthScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
-                      controller: countEditingController,
+                      controller: _countEditingController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
                 ),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      await imageLoading();
                       setState(() {
-                        int count = int.tryParse(countEditingController.text) ?? 0;
+                        int count = int.tryParse(_countEditingController.text) ?? 0;
                         for (int i = 0; i < count; i++) {
-                          imageUrl.add(nameEditingController.text); // 수정된 부분
+                          _image.add(_nameEditingController.text); // 수정된 부분
                         }
                       });
                     },
@@ -80,9 +94,9 @@ class _FourthScreenState extends State<FourthScreen> {
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
                 ),
-                itemCount: imageUrl.length,
+                itemCount: _image.length,
                 itemBuilder: (BuildContext context, index) {
-                  return Image.network(imageUrl[index]);
+                  return Image.network(_image[index]);
                 },
               ),
             ),

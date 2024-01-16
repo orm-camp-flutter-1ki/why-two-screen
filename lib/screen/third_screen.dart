@@ -9,14 +9,14 @@ class ThirdScreen extends StatefulWidget {
 }
 
 class _ThirdScreenState extends State<ThirdScreen> {
-  TextEditingController nameEditingController = TextEditingController();
-  TextEditingController countEditingController = TextEditingController();
+  final TextEditingController _nameEditingController = TextEditingController();
+  final TextEditingController _countEditingController = TextEditingController();
   List<String> nameCounts = [];
 
   @override
   void dispose() {
-    nameEditingController.dispose();
-    countEditingController.dispose();
+    _nameEditingController.dispose();
+    _countEditingController.dispose();
     super.dispose();
   }
 
@@ -48,7 +48,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
-                      controller: nameEditingController,
+                      controller: _nameEditingController,
                     ),
                   ),
                 ),
@@ -60,7 +60,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextField(
-                      controller: countEditingController,
+                      controller: _countEditingController,
                       keyboardType: TextInputType.number,
                     ),
                   ),
@@ -68,8 +68,8 @@ class _ThirdScreenState extends State<ThirdScreen> {
                 ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        int count = int.tryParse(countEditingController.text) ?? 0;
-                        nameCounts = List.generate(count, (index) => nameEditingController.text);
+                        int count = int.tryParse(_countEditingController.text) ?? 0;
+                        nameCounts = List.generate(count, (index) => _nameEditingController.text);
                         print(nameCounts);
                       });
                     },
