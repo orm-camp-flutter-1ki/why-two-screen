@@ -76,7 +76,7 @@ class _FourthScreenState extends State<FourthScreen> {
                       setState(() {
                         int count = int.tryParse(_countEditingController.text) ?? 0;
                         for (int i = 0; i < count; i++) {
-                          _image.add(_nameEditingController.text); // 수정된 부분
+                          _image.add(_nameEditingController.text);
                         }
                       });
                     },
