@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ListScreen extends StatefulWidget {
-  const ListScreen({super.key});
+  const ListScreen({Key? key}) : super(key: key);
 
   @override
   State<ListScreen> createState() => _ListScreenState();
@@ -37,7 +37,8 @@ class _ListScreenState extends State<ListScreen> {
       final int count = int.tryParse(_countController.text) ?? 0;
 
       for (int i = 0; i < count; i++) {
-        _items.add(_nameController.text);
+        _items.add(
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6BxZxbIpcJxdkEAP0S9f-6X7-eVOI0d72wA&usqp=CAU'); // Replace with your image URL
       }
     });
   }
@@ -46,7 +47,7 @@ class _ListScreenState extends State<ListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('아버지가 3명'),
+        title: const Text('강인이 월클 입니다.'),
       ),
       body: Column(
         children: [
@@ -72,15 +73,19 @@ class _ListScreenState extends State<ListScreen> {
           ),
           _isLoading
               ? const Center(
-                  child: Text('로딩'),
+                  child:
+                      CircularProgressIndicator(), // Show a loading indicator
                 )
               : Expanded(
-                  child: ListView(
-                    children: _items
-                        .map((e) => ListTile(
-                              title: Text(e),
-                            ))
-                        .toList(),
+                  child: ListView.builder(
+                    itemCount: _items.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Image.network(
+                          _items[index], // Use the image URL from the list
+                        ),
+                      );
+                    },
                   ),
                 ),
         ],
