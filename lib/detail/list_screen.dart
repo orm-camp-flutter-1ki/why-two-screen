@@ -38,7 +38,7 @@ class _ListScreenState extends State<ListScreen> {
                 width: 100,
                 child: TextFormField(
                   controller: valueTextEditingController,
-                  decoration: const InputDecoration(hintText: '값 입력'),
+                  decoration: const InputDecoration(hintText: 'Url 주소 입력'),
                 ),
               ),
               Container(
