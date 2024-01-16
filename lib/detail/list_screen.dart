@@ -83,6 +83,7 @@ class _ListScreenState extends State<ListScreen> {
                         return Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Image.network(
+                            errorBuilder: (context, error, stackTrace) => Text('잘못된 url'),
                             valueString,
                             fit: BoxFit.cover,
                           ),
