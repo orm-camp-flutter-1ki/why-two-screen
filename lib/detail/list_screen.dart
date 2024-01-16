@@ -82,9 +82,11 @@ class _ListScreenState extends State<ListScreen> {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Image.network(valueString, fit: BoxFit.cover,),
+                          child: Image.network(
+                            valueString,
+                            fit: BoxFit.cover,
+                          ),
                         );
-
                       },
                     ),
                   ),
