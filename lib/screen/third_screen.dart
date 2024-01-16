@@ -14,6 +14,13 @@ class _ThirdScreenState extends State<ThirdScreen> {
   List<String> nameCounts = [];
 
   @override
+  void dispose() {
+    nameEditingController.dispose();
+    countEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
