@@ -8,27 +8,35 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController _imageUrlController = TextEditingController();
   final TextEditingController _numController = TextEditingController();
-  String stringValue = '';
-  int intValue = 0;
-  List<int> countList = [];
-  List<String> stringList = [];
+  bool _isLoading = false;
 
-  List<int> count() {
-    countList = List.generate(100, (index) => index + 1);
-    return countList;
-  }
+  //Image? image;
+  List<Image> imageList = [];
 
-  void combineAdd(String stringValue, int intValue) {
-    for (int i = 0; i < intValue; i++) {
-      stringList.add(stringValue);
-    }
+  Future<void> imageAdd() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 3));
+
+    setState(() {
+      final imageUrl = _imageUrlController.text;
+      _isLoading = false;
+      final intValue = int.tryParse(_numController.text) ?? 0;
+
+      final image = Image.network(imageUrl);
+      for (int i = 0; i < intValue; i++) {
+        imageList.add(image);
+      }
+    });
   }
 
   @override
   void dispose() {
-    _textController.dispose();
+    _imageUrlController.dispose();
     _numController.dispose();
     super.dispose();
   }
@@ -49,7 +57,7 @@ class _ListScreenState extends State<ListScreen> {
                 Expanded(
                   flex: 1,
                   child: TextField(
-                    controller: _textController,
+                    controller: _imageUrlController,
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -68,27 +76,22 @@ class _ListScreenState extends State<ListScreen> {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        stringValue = _textController.text;
-                        intValue = int.tryParse(_numController.text) ?? 0;
-                        combineAdd(stringValue, intValue);
-
-                      });
+                      imageAdd();
                     },
                     child: const Text('출력')),
               ],
             ),
           ),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 Expanded(
                   child: ListView.builder(
-                    itemCount: stringList.length,
+                    itemCount: imageList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Text(stringList[index]);
+                      return imageList[index];
                     },
                   ),
                 ),
