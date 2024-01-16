@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:why_two_screen/detail/detail_screen.dart';
+import 'package:why_two_screen/list_screen/list_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -19,6 +20,15 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         title: const Text('Main Screen'),
         actions: [
+          GestureDetector(
+            child: const Text('아버지'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ListScreen()),
+              );
+            },
+          ),
           IconButton(
             onPressed: () async {
               // 다른 화면
