@@ -10,7 +10,7 @@ class FourthScreen extends StatefulWidget {
 class _FourthScreenState extends State<FourthScreen> {
   final TextEditingController _nameEditingController = TextEditingController();
   final TextEditingController _countEditingController = TextEditingController();
-  List<String> _image = [];
+  List<String> _image = []; // 이미지 리스트
   bool _isloading = false;
 
   @override
@@ -76,7 +76,7 @@ class _FourthScreenState extends State<FourthScreen> {
                       setState(() {
                         int count = int.tryParse(_countEditingController.text) ?? 0;
                         for (int i = 0; i < count; i++) {
-                          _image.add(_nameEditingController.text);
+                          _image.add(_nameEditingController.text); // 지정된 수 만큼 출력
                         }
                       });
                     },
