@@ -13,6 +13,7 @@ class _ListScreenState extends State<ListScreen> {
   int count = 0;
   final valueTextEditingController = TextEditingController();
   final countTextEditingController = TextEditingController();
+  bool isLoading = false;
 
   @override
   void dispose() {
@@ -37,7 +38,7 @@ class _ListScreenState extends State<ListScreen> {
                 width: 100,
                 child: TextFormField(
                   controller: valueTextEditingController,
-                  decoration: InputDecoration(hintText: '값 입력'),
+                  decoration: const InputDecoration(hintText: '값 입력'),
                 ),
               ),
               Container(
@@ -47,33 +48,46 @@ class _ListScreenState extends State<ListScreen> {
                   controller: countTextEditingController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(hintText: '갯수 입력',),
+                  decoration: const InputDecoration(
+                    hintText: '갯수 입력',
+                  ),
                 ),
               ),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+
+                    await Future.delayed(const Duration(seconds: 3));
                     // valueString.clear();
                     setState(() {
+                      isLoading = false;
                       valueString = (valueTextEditingController.text);
-                      count = int.tryParse(countTextEditingController.text) ?? 0;
+                      count =
+                          int.tryParse(countTextEditingController.text) ?? 0;
                     });
                   },
-                  child: Text('출력')),
+                  child: const Text('출력')),
             ],
           ),
-          Expanded(
-            child: Container(
-              child: ListView.builder(
-                itemCount: count,
-                itemBuilder: (context, index) {
-                  return  ListTile(
-                    title: Text('$valueString'),
-                    subtitle: Text('${index + 1}'),
-                  );
-                },
-              ),
-            ),
-          ),
+          isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                      itemCount: count,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text('$valueString'),
+                          subtitle: Text('${index + 1}'),
+                        );
+                      },
+                    ),
+                  ),
+                ),
         ],
       ),
     );
