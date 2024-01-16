@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:why_two_screen/ui/detail/image_item_widget.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -11,6 +12,7 @@ class _ListScreenState extends State<ListScreen> {
   String inputText = '';
   final textController = TextEditingController();
   int inputNumber = 0;
+
 
   @override
   void dispose() {
@@ -80,7 +82,10 @@ class _ListScreenState extends State<ListScreen> {
                 child: ListView.builder(
                   itemCount: inputNumber,
                   itemBuilder: (context, index) {
-                    return Text(inputText);
+                    final imageItem = ImageItemWidget(imageUrl: textController.text);
+
+                    // return Text(inputText);
+                    return imageItem;
                   },
                 ),
               ),
