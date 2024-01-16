@@ -80,10 +80,11 @@ class _ListScreenState extends State<ListScreen> {
                     child: ListView.builder(
                       itemCount: count,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text('$valueString'),
-                          subtitle: Text('${index + 1}'),
+                        return Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Image.network(valueString, fit: BoxFit.cover,),
                         );
+
                       },
                     ),
                   ),
