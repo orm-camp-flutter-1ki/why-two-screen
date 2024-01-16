@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/third/third_screen.dart';
+import 'package:why_two_screen/screen/third_screen.dart';
 
 class SecondScreen extends StatefulWidget {
   @override

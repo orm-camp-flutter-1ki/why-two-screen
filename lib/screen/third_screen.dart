@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'fourth_screen.dart';
 
 class ThirdScreen extends StatefulWidget {
   const ThirdScreen({super.key});
@@ -16,6 +17,14 @@ class _ThirdScreenState extends State<ThirdScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.navigate_next_outlined),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const FourthScreen()));
+            },
+          )
+        ],
         title: const Text('세번째 화면'),
       ),
       body: Padding(
