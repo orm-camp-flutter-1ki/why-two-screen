@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -31,15 +34,25 @@ class _ListScreenState extends State<ListScreen> {
     await Future.delayed(const Duration(seconds: 3));
 
     // 결과 보여주자
-    setState(() {
-      _isLoading = false;
+    _isLoading = false;
 
-      final int count = int.tryParse(_countController.text) ?? 0;
-
-      for (int i = 0; i < count; i++) {
-        _items.add(_nameController.text);
-      }
+    // final int count = int.tryParse(_countController.text) ?? 0;
+    //
+    // for (int i = 0; i < count; i++) {
+    //   _items.add(_nameController.text);
+    // }
+    Uri uri = Uri.parse('https://jsonplaceholder.typicode.com/todos');
+    final response = await http.get(uri, headers: {
+      'Authorization': 'Authorization: Bearer 12312313'
     });
+    List<dynamic> json = jsonDecode(response.body);
+    List<Map<String, dynamic>> jsonMapList =
+        json.map((e) => e as Map<String, dynamic>).toList();
+
+    print(jsonMapList[0]['userId']);
+    print(jsonMapList[0]['title']);
+
+    setState(() {});
   }
 
   @override
