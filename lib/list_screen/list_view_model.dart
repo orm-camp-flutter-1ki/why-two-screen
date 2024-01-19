@@ -1,14 +1,13 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:why_two_screen/list_screen/photo_repository.dart';
 
-import '../fake_data.dart';
 import 'list_screen.dart';
 
 class ListViewModel extends ChangeNotifier {
+  final repository = PhotoRepository();
+
   List<String> items = []; // List
   bool isLoading = false; // 로딩
-
-  var _jsonMapList = []; // List<dynamic>
 
   List<Photo> photos = [];
 
@@ -25,14 +24,9 @@ class ListViewModel extends ChangeNotifier {
     // 결과 보여주자
     isLoading = false;
 
-    final dio = Dio();
-    final response =
-        await dio.get('https://jsonplaceholder.typicode.com/photos');
-
-    // _jsonMapList = response.data;
-    _jsonMapList = fakeData;
-
-    photos = _jsonMapList.map((e) => Photo.fromMap(e)).toList();
+    photos = await repository.getPhotos();
     notifyListeners();
   }
+
+
 }
