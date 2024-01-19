@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -41,13 +42,20 @@ class _ListScreenState extends State<ListScreen> {
     // for (int i = 0; i < count; i++) {
     //   _items.add(_nameController.text);
     // }
-    Uri uri = Uri.parse('https://jsonplaceholder.typicode.com/todos');
-    final response = await http.get(uri, headers: {
-      'Authorization': 'Authorization: Bearer 12312313'
-    });
-    List<dynamic> json = jsonDecode(response.body);
-    List<Map<String, dynamic>> jsonMapList =
-        json.map((e) => e as Map<String, dynamic>).toList();
+    // Uri uri = Uri.parse('https://jsonplaceholder.typicode.com/todos');
+    // final response = await http.get(uri, headers: {
+    //   'Authorization': 'Authorization: Bearer 12312313'
+    // });
+    // List<dynamic> json = jsonDecode(response.body);
+    // List<Map<String, dynamic>> jsonMapList =
+    //     json.map((e) => e as Map<String, dynamic>).toList();
+
+    final dio = Dio();
+    final response = await dio.get('https://jsonplaceholder.typicode.com/todos');
+
+    // print(response.data);
+
+    final jsonMapList = response.data;
 
     print(jsonMapList[0]['userId']);
     print(jsonMapList[0]['title']);
