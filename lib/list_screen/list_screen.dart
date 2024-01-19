@@ -19,6 +19,11 @@ class _ListScreenState extends State<ListScreen> {
 
   var _jsonMapList = [];  // List<dynamic>
 
+  // List<String> titles = [];
+  // List<String> tumbnailUrls = [];
+
+  List<Photo> _photos = [];
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -39,29 +44,13 @@ class _ListScreenState extends State<ListScreen> {
     // 결과 보여주자
     _isLoading = false;
 
-    // final int count = int.tryParse(_countController.text) ?? 0;
-    //
-    // for (int i = 0; i < count; i++) {
-    //   _items.add(_nameController.text);
-    // }
-    // Uri uri = Uri.parse('https://jsonplaceholder.typicode.com/todos');
-    // final response = await http.get(uri, headers: {
-    //   'Authorization': 'Authorization: Bearer 12312313'
-    // });
-    // List<dynamic> json = jsonDecode(response.body);
-    // List<Map<String, dynamic>> jsonMapList =
-    //     json.map((e) => e as Map<String, dynamic>).toList();
-
     final dio = Dio();
     final response =
         await dio.get('https://jsonplaceholder.typicode.com/photos');
 
-    // print(response.data);
-
     _jsonMapList = response.data;
 
-    // print(jsonMapList[0]['userId']);
-    // print(jsonMapList[0]['title']);
+    _photos = _jsonMapList.map((e) => Photo.fromMap(e)).toList();
 
     setState(() {});
   }
@@ -100,10 +89,10 @@ class _ListScreenState extends State<ListScreen> {
                 )
               : Expanded(
                   child: ListView(
-                    children: _jsonMapList
+                    children: _photos
                         .map((e) => ListTile(
-                              title: Text(e['title']),
-                              leading: Image.network(e['thumbnailUrl']),
+                              title: Text(e.title),
+                              leading: Image.network(e.thumbnailUrl),
                             ))
                         .toList(),
                   ),
@@ -112,4 +101,59 @@ class _ListScreenState extends State<ListScreen> {
       ),
     );
   }
+}
+
+
+// 모델 클래스
+class Photo {
+  final String thumbnailUrl;
+  final String title;
+
+//<editor-fold desc="Data Methods">
+  const Photo({
+    required this.thumbnailUrl,
+    required this.title,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Photo &&
+          runtimeType == other.runtimeType &&
+          thumbnailUrl == other.thumbnailUrl &&
+          title == other.title);
+
+  @override
+  int get hashCode => thumbnailUrl.hashCode ^ title.hashCode;
+
+  @override
+  String toString() {
+    return 'Photo{' + ' thumbnailUrl: $thumbnailUrl,' + ' title: $title,' + '}';
+  }
+
+  Photo copyWith({
+    String? thumbnailUrl,
+    String? title,
+  }) {
+    return Photo(
+      thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
+      title: title ?? this.title,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'thumbnailUrl': this.thumbnailUrl,
+      'title': this.title,
+    };
+  }
+
+  factory Photo.fromMap(Map<String, dynamic> map) {
+    return Photo(
+      thumbnailUrl: map['thumbnailUrl'] as String,
+      title: map['title'] as String,
+    );
+  }
+
+//</editor-fold>
 }
