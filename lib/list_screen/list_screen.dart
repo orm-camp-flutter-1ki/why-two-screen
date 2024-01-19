@@ -17,6 +17,8 @@ class _ListScreenState extends State<ListScreen> {
   List<String> _items = []; // List
   bool _isLoading = false; // 로딩
 
+  var _jsonMapList = [];  // List<dynamic>
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -51,14 +53,15 @@ class _ListScreenState extends State<ListScreen> {
     //     json.map((e) => e as Map<String, dynamic>).toList();
 
     final dio = Dio();
-    final response = await dio.get('https://jsonplaceholder.typicode.com/todos');
+    final response =
+        await dio.get('https://jsonplaceholder.typicode.com/photos');
 
     // print(response.data);
 
-    final jsonMapList = response.data;
+    _jsonMapList = response.data;
 
-    print(jsonMapList[0]['userId']);
-    print(jsonMapList[0]['title']);
+    // print(jsonMapList[0]['userId']);
+    // print(jsonMapList[0]['title']);
 
     setState(() {});
   }
@@ -97,9 +100,10 @@ class _ListScreenState extends State<ListScreen> {
                 )
               : Expanded(
                   child: ListView(
-                    children: _items
+                    children: _jsonMapList
                         .map((e) => ListTile(
-                              title: Text(e),
+                              title: Text(e['title']),
+                              leading: Image.network(e['thumbnailUrl']),
                             ))
                         .toList(),
                   ),
