@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:why_two_screen/detail/detail_screen.dart';
 import 'package:why_two_screen/list_screen/list_screen.dart';
+
+import '../list_screen/list_view_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -25,7 +28,12 @@ class _MainScreenState extends State<MainScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ListScreen()),
+                MaterialPageRoute(builder: (context) {
+                  return ChangeNotifierProvider(
+                    create: (_) => ListViewModel(),
+                    child: const ListScreen(),
+                  );
+                }),
               );
             },
           ),

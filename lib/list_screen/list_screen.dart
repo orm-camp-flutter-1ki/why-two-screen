@@ -1,8 +1,8 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:why_two_screen/fake_data.dart';
+import 'package:why_two_screen/list_screen/list_view_model.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({super.key});
@@ -14,15 +14,6 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   final _nameController = TextEditingController();
   final _countController = TextEditingController();
-  List<String> _items = []; // List
-  bool _isLoading = false; // 로딩
-
-  var _jsonMapList = [];  // List<dynamic>
-
-  // List<String> titles = [];
-  // List<String> tumbnailUrls = [];
-
-  List<Photo> _photos = [];
 
   @override
   void dispose() {
@@ -31,32 +22,9 @@ class _ListScreenState extends State<ListScreen> {
     super.dispose();
   }
 
-  Future<void> printFather() async {
-    setState(() {
-      // 로딩 3초 하고
-      _isLoading = true;
-      _items = [];
-    });
-
-    // 미래에 3초 후에 끝날 동작
-    await Future.delayed(const Duration(seconds: 3));
-
-    // 결과 보여주자
-    _isLoading = false;
-
-    final dio = Dio();
-    final response =
-        await dio.get('https://jsonplaceholder.typicode.com/photos');
-
-    _jsonMapList = response.data;
-
-    _photos = _jsonMapList.map((e) => Photo.fromMap(e)).toList();
-
-    setState(() {});
-  }
-
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<ListViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('아버지가 3명'),
@@ -77,19 +45,19 @@ class _ListScreenState extends State<ListScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  printFather();
+                  viewModel.printFather();
                 },
                 child: const Text('출력'),
               ),
             ],
           ),
-          _isLoading
+          viewModel.isLoading
               ? const Center(
                   child: Text('로딩'),
                 )
               : Expanded(
                   child: ListView(
-                    children: _photos
+                    children: viewModel.photos
                         .map((e) => ListTile(
                               title: Text(e.title),
                               leading: Image.network(e.thumbnailUrl),
@@ -105,6 +73,9 @@ class _ListScreenState extends State<ListScreen> {
 
 
 // 모델 클래스
+// JsonSerializable
+// Freezed
+// json to dart
 class Photo {
   final String thumbnailUrl;
   final String title;
