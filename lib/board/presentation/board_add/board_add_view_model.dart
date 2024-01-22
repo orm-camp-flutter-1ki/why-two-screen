@@ -3,13 +3,18 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import '../../domain/image_selector/image_selector.dart';
+import '../../domain/model/post.dart';
+import '../../domain/repository/post_repository.dart';
 
 class BoardAddViewModel extends ChangeNotifier {
-  ImageSelector _imageSelector;
+  final ImageSelector _imageSelector;
+  final PostRepository _postRepository;
 
   BoardAddViewModel({
     required ImageSelector imageSelector,
-  }) : _imageSelector = imageSelector;
+    required PostRepository postRepository,
+  })  : _imageSelector = imageSelector,
+        _postRepository = postRepository;
 
   String title = '';
 
@@ -20,11 +25,11 @@ class BoardAddViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addPost() {
+  Future<void> addPost() async {
     if (title.isEmpty || image == null) {
       return;
     }
 
-    print(title);
+    await _postRepository.addPost(Post(title: title, image: image!));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:why_two_screen/board/data/image_selector/image_selector_impl.dart';
+import 'package:why_two_screen/board/data/repository/post_repository_impl.dart';
 import 'package:why_two_screen/board/presentation/board_add/board_add_screen.dart';
 import 'package:why_two_screen/main/main_screen.dart';
 
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
       home: ChangeNotifierProvider(
         create: (_) => BoardAddViewModel(
           imageSelector: ImageSelectorImpl(),
+          postRepository: PostRepositoryImpl(),
         ),
         child: const BoardAddScreen(),
       ),
