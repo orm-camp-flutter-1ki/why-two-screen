@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+scale 2
+
+class ListViewModel {
+    PhotoRepository repository;
+}
+
+class PhotoRepositoryImpl implements PhotoRepository {
+}
+
+interface PhotoRepository {}
+
+@enduml

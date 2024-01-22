@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:why_two_screen/list_screen/photo_repository.dart';
+import 'package:why_two_screen/list_screen/photo_repository_impl.dart';
 
 import 'list_screen.dart';
 
 class ListViewModel extends ChangeNotifier {
-  final repository = PhotoRepository();
+  PhotoRepository repository = MockPhotoRepositoryImpl();
 
   List<String> items = []; // List
   bool isLoading = false; // 로딩
