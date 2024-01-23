@@ -1,15 +1,12 @@
-import 'dart:typed_data';
-
 class Post {
-  final String? uid;
+  final String uid;
   final String title;
-  final String? imageUrl;
+  final String imageUrl;
 
-//<editor-fold desc="Data Methods">
   const Post({
-    this.uid,
+    required this.uid,
     required this.title,
-    this.imageUrl,
+    required this.imageUrl,
   });
 
   @override
@@ -44,22 +41,4 @@ class Post {
       imageUrl: imageUrl ?? this.imageUrl,
     );
   }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'uid': this.uid,
-      'title': this.title,
-      'imageUrl': this.imageUrl,
-    };
-  }
-
-  factory Post.fromMap(Map<String, dynamic> map) {
-    return Post(
-      uid: map['uid'] as String,
-      title: map['title'] as String,
-      imageUrl: map['imageUrl'] as String,
-    );
-  }
-
-//</editor-fold>
 }

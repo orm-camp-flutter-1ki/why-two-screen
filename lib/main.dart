@@ -1,14 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:why_two_screen/board/data/image_selector/image_selector_impl.dart';
 import 'package:why_two_screen/board/data/repository/post_repository_impl.dart';
-import 'package:why_two_screen/board/presentation/board_add/board_add_screen.dart';
-import 'package:why_two_screen/main/main_screen.dart';
 
-import 'board/presentation/board_add/board_add_view_model.dart';
-
-import 'package:firebase_core/firebase_core.dart';
+import 'board/domain/repository/post_repository.dart';
+import 'board/presentation/board_list/board_list_screen.dart';
+import 'board/presentation/board_list/board_list_view_model.dart';
 import 'firebase_options.dart';
+
+late PostRepository postRepository;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +16,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  postRepository = PostRepositoryImpl();
 
   runApp(const MyApp());
 }
@@ -33,11 +35,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: ChangeNotifierProvider(
-        create: (_) => BoardAddViewModel(
-          imageSelector: ImageSelectorImpl(),
-          postRepository: PostRepositoryImpl(),
+        create: (_) => BoardListViewModel(
+          postRepository: postRepository,
         ),
-        child: const BoardAddScreen(),
+        child: const BoardListScreen(),
       ),
     );
   }
