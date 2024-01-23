@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/detail/image_print_screen.dart';
-import 'package:why_two_screen/detail/list_screen.dart';
-
+import 'final_screen.dart';
+import 'image_print_screen.dart';
+import 'list_screen.dart';
 import 'print_screen.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '다음 화면',
+          'detail',
           style: TextStyle(color: widget.color),
         ),
         actions:  [
@@ -35,6 +35,9 @@ class _DetailScreenState extends State<DetailScreen> {
           ElevatedButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => ImagePrintScreen()));
           }, child: const Text('image')),
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => FinalScreen()));
+          }, child: const Text('final')),
         ]
       ),
       body: Padding(
