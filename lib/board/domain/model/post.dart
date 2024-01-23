@@ -3,13 +3,13 @@ import 'dart:typed_data';
 class Post {
   final String? uid;
   final String title;
-  final Uint8List image;
+  final String? imageUrl;
 
 //<editor-fold desc="Data Methods">
   const Post({
     this.uid,
     required this.title,
-    required this.image,
+    this.imageUrl,
   });
 
   @override
@@ -19,29 +19,29 @@ class Post {
           runtimeType == other.runtimeType &&
           uid == other.uid &&
           title == other.title &&
-          image == other.image);
+          imageUrl == other.imageUrl);
 
   @override
-  int get hashCode => uid.hashCode ^ title.hashCode ^ image.hashCode;
+  int get hashCode => uid.hashCode ^ title.hashCode ^ imageUrl.hashCode;
 
   @override
   String toString() {
     return 'Post{' +
         ' uid: $uid,' +
         ' title: $title,' +
-        ' image: $image,' +
+        ' imageUrl: $imageUrl,' +
         '}';
   }
 
   Post copyWith({
     String? uid,
     String? title,
-    Uint8List? image,
+    String? imageUrl,
   }) {
     return Post(
       uid: uid ?? this.uid,
       title: title ?? this.title,
-      image: image ?? this.image,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 
@@ -49,7 +49,7 @@ class Post {
     return {
       'uid': this.uid,
       'title': this.title,
-      'image': this.image,
+      'imageUrl': this.imageUrl,
     };
   }
 
@@ -57,7 +57,7 @@ class Post {
     return Post(
       uid: map['uid'] as String,
       title: map['title'] as String,
-      image: map['image'] as Uint8List,
+      imageUrl: map['imageUrl'] as String,
     );
   }
 

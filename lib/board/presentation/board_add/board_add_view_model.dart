@@ -30,6 +30,6 @@ class BoardAddViewModel extends ChangeNotifier {
       return;
     }
 
-    await _postRepository.addPost(Post(title: title, image: image!));
+    await _postRepository.addPost(title, image!);
   }
 }

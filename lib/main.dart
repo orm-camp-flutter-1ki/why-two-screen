@@ -7,7 +7,16 @@ import 'package:why_two_screen/main/main_screen.dart';
 
 import 'board/presentation/board_add/board_add_view_model.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
