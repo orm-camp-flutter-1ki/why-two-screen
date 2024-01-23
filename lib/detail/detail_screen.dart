@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:why_two_screen/detail/list_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final Color color;
@@ -18,6 +19,20 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListScreen(),
+                ),
+              );
+            },
+            icon: Icon(Icons.navigate_next),
+          ),
+        ],
+        centerTitle: true,
         title: Text(
           '다음 화면',
           style: TextStyle(color: widget.color),
