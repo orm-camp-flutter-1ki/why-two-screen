@@ -1,6 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:why_two_screen/detail/image_print_screen.dart';
+import 'package:why_two_screen/detail/list_screen.dart';
+
+import 'print_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final Color color;
@@ -22,26 +25,40 @@ class _DetailScreenState extends State<DetailScreen> {
           '다음 화면',
           style: TextStyle(color: widget.color),
         ),
+        actions:  [
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen()));
+          }, child: const Text('list')),
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PrintScreen()));
+          }, child: const Text('print')),
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ImagePrintScreen()));
+          }, child: const Text('image')),
+        ]
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _bottomColor = getRandomColor();
-              });
-            },
-            child: const Text('함수 호출'),
-          ),
-          BottomContainer(_bottomColor),
-          ElevatedButton(
-            onPressed: () {
-              // 앞 화면으로 전달
-              Navigator.pop(context, _bottomColor);
-            },
-            child: const Text('돌려주기'),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _bottomColor = getRandomColor();
+                });
+              },
+              child: const Text('함수 호출'),
+            ),
+            BottomContainer(_bottomColor),
+            ElevatedButton(
+              onPressed: () {
+                // 앞 화면으로 전달
+                Navigator.pop(context, _bottomColor);
+              },
+              child: const Text('돌려주기'),
+            ),
+          ],
+        ),
       ),
     );
   }
