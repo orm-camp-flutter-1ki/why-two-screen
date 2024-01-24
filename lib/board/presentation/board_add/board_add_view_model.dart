@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import '../../domain/image_selector/image_selector.dart';
-import '../../domain/model/post.dart';
 import '../../domain/repository/post_repository.dart';
 
 class BoardAddViewModel extends ChangeNotifier {
