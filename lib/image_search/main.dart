@@ -24,12 +24,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ImageScreen(
-        listenable: ImageViewModel(
+      home: ChangeNotifierProvider(
+        create: (_) => ImageViewModel(
           ImageRepositoryImpl(
-            ImageApiImpl(),
+              ImageApiImpl()
           ),
         ),
+        child: const ImageScreen(),
       ),
     );
   }
