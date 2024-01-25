@@ -8,88 +8,132 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  final outputTextEditingController = TextEditingController();
-  final countTextEditingController = TextEditingController();
-
-  String _printCount = '3';
-  String _printText = '아버지';
+  final _inputTextController = TextEditingController();
+  final _countTextController = TextEditingController();
+  List<String> _items = [];
+  bool _isLoading = false;
 
   @override
   void dispose() {
-    outputTextEditingController.dispose();
-    countTextEditingController.dispose();
+    _inputTextController.dispose();
+    _countTextController.dispose();
     super.dispose();
+  }
+
+  Future<void> printInput() async {
+    setState(() {
+      _isLoading = true;
+      _items = [];
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      _isLoading = false;
+
+      final int count = int.tryParse(_countTextController.text) ?? 0;
+
+      for (int i = 0; i < count; i++) {
+        _items.add(_inputTextController.text);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: outputTextEditingController,
-                    decoration: InputDecoration(
-                      hintText: '아버지',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 2,
-                          color: Colors.black,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 2,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextField(
-                    controller: countTextEditingController,
-                    decoration: InputDecoration(
-                      hintText: '3',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 2,
-                          color: Colors.black,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 2,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _printText = outputTextEditingController.text ?? 'Test';
-                      _printCount = countTextEditingController.text ?? '3';
-                    });
-                  },
-                  icon: const Icon(Icons.list_alt),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            BottomListContainer(_printText, int.parse(_printCount)),
-          ],
+      appBar: AppBar(
+        title: const Text(
+          '입력 출력',
+          style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+            },
+            icon: const Icon(Icons.add_box),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _inputTextController,
+                      decoration: InputDecoration(
+                        hintText: '아버지',
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(
+                            width: 2,
+                            color: Colors.black,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(
+                            width: 2,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      controller: _countTextController,
+                      decoration: InputDecoration(
+                        hintText: '3',
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(
+                            width: 2,
+                            color: Colors.black,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(
+                            width: 2,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      printInput();
+                    },
+                    icon: const Icon(Icons.list_alt),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              _isLoading
+              ? BottomLoadingContainer()
+              : BottomListContainer(_inputTextController.text, int.parse(_countTextController.text)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BottomLoadingContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+        child: Center(child: CircularProgressIndicator()),
       ),
     );
   }
