@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:why_two_screen/data/pixabay_api.dart';
-import '../model/photo.dart';
+import 'package:why_two_screen/view_model/final_screen_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class FinalScreen extends StatefulWidget {
   const FinalScreen({super.key});
@@ -12,8 +13,6 @@ class FinalScreen extends StatefulWidget {
 class _FinalScreenState extends State<FinalScreen> {
   final pixabayApi = PixabayApi();
   final _textController = TextEditingController();
-  List<Photo> _items = [];
-  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -21,20 +20,9 @@ class _FinalScreenState extends State<FinalScreen> {
     super.dispose();
   }
 
-  Future<void> loadIcon() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    // 미래에 3초 후에 끝날 동작
-    await Future.delayed(const Duration(seconds: 3));
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+  final viewModel = context.watch<FinalScreenViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -58,14 +46,12 @@ class _FinalScreenState extends State<FinalScreen> {
           ElevatedButton(
               onPressed: () async {
                 final items = await pixabayApi.getData(_textController.text);
-                setState(() {
-                  _items = items;
-                  loadIcon();
-                });
+                  viewModel.items = items;
+                  viewModel.loadIcon(_textController.text);
               },
               child: const Text('출력'))
         ]),
-        _isLoading
+        viewModel.isLoading
             ? const Center(child: CircularProgressIndicator())
             : Expanded(
                 child: Container(
@@ -75,7 +61,7 @@ class _FinalScreenState extends State<FinalScreen> {
                     border: Border.all(color: Colors.black),
                   ),
                   child: ListView(
-                    children: _items
+                    children: viewModel.items
                         .map(
                           (e) => ListTile(
                             leading: Container(
