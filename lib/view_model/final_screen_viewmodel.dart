@@ -27,4 +27,5 @@ class FinalScreenViewModel with ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/data/pixabay_api.dart';
 import 'package:why_two_screen/view_model/final_screen_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +10,6 @@ class FinalScreen extends StatefulWidget {
 }
 
 class _FinalScreenState extends State<FinalScreen> {
-  final pixabayApi = PixabayApi();
   final _textController = TextEditingController();
 
   @override
@@ -45,8 +43,6 @@ class _FinalScreenState extends State<FinalScreen> {
           const SizedBox(width: 8),
           ElevatedButton(
               onPressed: () async {
-                final items = await pixabayApi.getData(_textController.text);
-                  viewModel.items = items;
                   viewModel.loadIcon(_textController.text);
               },
               child: const Text('출력'))

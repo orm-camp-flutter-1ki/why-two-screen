@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:why_two_screen/view_model/final_screen_viewmodel.dart';
 import 'final_screen.dart';
 import 'image_print_screen.dart';
 import 'list_screen.dart';
@@ -21,25 +23,48 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'detail',
-          style: TextStyle(color: widget.color),
-        ),
-        actions:  [
-          ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen()));
-          }, child: const Text('list')),
-          ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PrintScreen()));
-          }, child: const Text('print')),
-          ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ImagePrintScreen()));
-          }, child: const Text('image')),
-          ElevatedButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => FinalScreen()));
-          }, child: const Text('final')),
-        ]
-      ),
+          title: Text(
+            'detail',
+            style: TextStyle(color: widget.color),
+          ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ListScreen()));
+                },
+                child: const Text('list')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PrintScreen()));
+                },
+                child: const Text('print')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ImagePrintScreen()));
+                },
+                child: const Text('image')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider(
+                              create: (context) => FinalScreenViewModel(),
+                              child: const FinalScreen(),
+                          ),
+                      ));
+                },
+                child: const Text('final')),
+          ]),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Column(
