@@ -98,7 +98,6 @@ class _PrintScreenState extends State<PrintScreen> {
                   ),
                   child: ListView(
                     children: _items
-
                         .map((e) => ListTile(
                               title: Text(e),
                             ))

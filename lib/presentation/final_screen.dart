@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/view_model/final_screen_viewmodel.dart';
+import 'package:why_two_screen/presentation/view_model/final_screen_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class FinalScreen extends StatefulWidget {
@@ -66,11 +66,11 @@ class _FinalScreenState extends State<FinalScreen> {
                                 decoration: BoxDecoration (
                                   image: DecorationImage (
                                     fit: BoxFit.cover,
-                                    image: NetworkImage('${e.previewURL}'),
+                                    image: NetworkImage('$e.previewURL'),
                                 ),
                                 ),
                                 ),
-                            title: Text('${e.tags}'),
+                            title: Text('$e.tags'),
                           ),
                         )
                         .toList(),

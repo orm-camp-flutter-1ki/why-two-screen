@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import '../data/pixabay_api.dart';
-import '../model/photo.dart';
+import 'package:why_two_screen/data/repository/photo_api_repository_impl.dart';
+
+import '../../domain/model/photo.dart';
+
 
 class FinalScreenViewModel with ChangeNotifier {
-  final pixabayApi = PixabayApi();
+  final PhotoApiRepositoryImpl repository;
+
+  FinalScreenViewModel(this.repository);
 
   List<Photo> _items = [];
-  bool _isLoading = false;
-
   List<Photo> get items => _items;
 
   set items(List<Photo> value) {
@@ -15,6 +17,7 @@ class FinalScreenViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   Future<void> loadIcon(String query) async {
@@ -22,10 +25,9 @@ class FinalScreenViewModel with ChangeNotifier {
     notifyListeners();
 
     await Future.delayed(const Duration(seconds: 3));
-    final items = await pixabayApi.getData(query);
+    final items = await repository.getData(query);
     _items = items;
     _isLoading = false;
     notifyListeners();
   }
-
 }
