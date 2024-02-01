@@ -3,13 +3,13 @@ import 'package:why_two_screen/data/repository/photo_api_repository_impl.dart';
 
 import '../../domain/model/photo.dart';
 
-
 class FinalScreenViewModel with ChangeNotifier {
   final PhotoApiRepositoryImpl repository;
 
   FinalScreenViewModel(this.repository);
 
   List<Photo> _items = [];
+
   List<Photo> get items => _items;
 
   set items(List<Photo> value) {
@@ -18,6 +18,7 @@ class FinalScreenViewModel with ChangeNotifier {
   }
 
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
 
   Future<void> loadIcon(String query) async {

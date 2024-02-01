@@ -20,7 +20,7 @@ class _FinalScreenState extends State<FinalScreen> {
 
   @override
   Widget build(BuildContext context) {
-  final viewModel = context.watch<FinalScreenViewModel>();
+    final viewModel = context.watch<FinalScreenViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -43,7 +43,7 @@ class _FinalScreenState extends State<FinalScreen> {
           const SizedBox(width: 8),
           ElevatedButton(
               onPressed: () async {
-                  viewModel.loadIcon(_textController.text);
+                viewModel.loadIcon(_textController.text);
               },
               child: const Text('출력'))
         ]),
@@ -62,14 +62,14 @@ class _FinalScreenState extends State<FinalScreen> {
                           (e) => ListTile(
                             leading: Container(
                               width: 50,
-                                height: 50,
-                                decoration: BoxDecoration (
-                                  image: DecorationImage (
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage('${e.previewURL}'),
+                              height: 50,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage('${e.previewURL}'),
                                 ),
-                                ),
-                                ),
+                              ),
+                            ),
                             title: Text('${e.tags}'),
                           ),
                         )

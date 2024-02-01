@@ -31,8 +31,6 @@ class _ListScreenState extends State<ListScreen> {
                   generateList();
                   // print(numberList);
                 });
-
-
               },
               child: const Text('출력'),
             ),
@@ -50,7 +48,6 @@ class _ListScreenState extends State<ListScreen> {
               );
             }),
       ),
-
     );
   }
 }

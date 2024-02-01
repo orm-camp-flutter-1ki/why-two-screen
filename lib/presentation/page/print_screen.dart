@@ -1,38 +1,46 @@
 import 'package:flutter/material.dart';
 
-class ImagePrintScreen extends StatefulWidget {
-  const ImagePrintScreen({super.key});
+class PrintScreen extends StatefulWidget {
+  const PrintScreen({super.key});
 
   @override
-  State<ImagePrintScreen> createState() => _ImagePrintScreenState();
+  State<PrintScreen> createState() => _PrintScreenState();
 }
 
-class _ImagePrintScreenState extends State<ImagePrintScreen> {
+class _PrintScreenState extends State<PrintScreen> {
   final _textController = TextEditingController();
   final _numberController = TextEditingController();
-  bool _isLoading = false;
   List<String> _items = [];
+  bool _isLoading = false;
 
+  @override
+  void dispose() {
+    _textController.dispose();
+    _numberController.dispose();
+    super.dispose();
+  }
 
-
-  Future<void>printImage() async{
+  Future<void> printFather() async {
     setState(() {
+      // 로딩 3초 하고
       _isLoading = true;
       _items = [];
     });
 
-    await Future.delayed(Duration(seconds: 1));
+    // 미래에 3초 후에 끝날 동작
+    await Future.delayed(const Duration(seconds: 3));
+
+    // 결과 보여주자
     setState(() {
-    _isLoading = false;
+      _isLoading = false;
 
-    final int count = int.tryParse(_numberController.text) ?? 0;
+      final int count = int.tryParse(_numberController.text) ?? 0;
 
-    for(int i = 0; i < count; i++) {
-      _items.add(_textController.text);
-    }
+      for (int i = 0; i < count; i++) {
+        _items.add(_textController.text);
+      }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +79,10 @@ class _ImagePrintScreenState extends State<ImagePrintScreen> {
           ElevatedButton(
               onPressed: () {
                 setState(() {
-                  printImage();
-                  // print(_items);
+                  printFather();
                 });
+                // print(_textController.text);
+                // print(int.parse(_numberController.text));
               },
               child: const Text('출력'))
         ]),
@@ -89,7 +98,7 @@ class _ImagePrintScreenState extends State<ImagePrintScreen> {
                   child: ListView(
                     children: _items
                         .map((e) => ListTile(
-                              title: Image.network(e),
+                              title: Text(e),
                             ))
                         .toList(),
                   ),

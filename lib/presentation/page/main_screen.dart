@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+
 import 'detail_screen.dart';
 
 class MainScreen extends StatefulWidget {

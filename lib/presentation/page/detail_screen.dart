@@ -59,10 +59,11 @@ class _DetailScreenState extends State<DetailScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider(
-                              create: (context) => FinalScreenViewModel(PhotoApiRepositoryImpl(PixabayApi())),
-                              child: const FinalScreen(),
-                          ),
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (context) => FinalScreenViewModel(
+                              PhotoApiRepositoryImpl(PixabayApi())),
+                          child: const FinalScreen(),
+                        ),
                       ));
                 },
                 child: const Text('final')),
