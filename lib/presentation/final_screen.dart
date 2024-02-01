@@ -66,11 +66,11 @@ class _FinalScreenState extends State<FinalScreen> {
                                 decoration: BoxDecoration (
                                   image: DecorationImage (
                                     fit: BoxFit.cover,
-                                    image: NetworkImage('$e.previewURL'),
+                                    image: NetworkImage('${e.previewURL}'),
                                 ),
                                 ),
                                 ),
-                            title: Text('$e.tags'),
+                            title: Text('${e.tags}'),
                           ),
                         )
                         .toList(),

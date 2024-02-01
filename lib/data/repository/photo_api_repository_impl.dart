@@ -10,6 +10,7 @@ class PhotoApiRepositoryImpl implements PhotoApiRepository {
   @override
   Future<List<Photo>> getData(String query) async {
     final response = await api.getData(query);
-    return response.map((e) => Photo.fromJson(e)).toList();
+    final responseList = response.map((e) => Photo.fromJson(e)).toList();
+    return responseList;
   }
 }
