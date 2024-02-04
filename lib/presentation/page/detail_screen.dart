@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:why_two_screen/data/data_source/pixabay_api.dart';
 import 'package:why_two_screen/data/repository/photo_api_repository_impl.dart';
+import 'package:why_two_screen/domain/use_case/get_photos_use_case.dart';
 import 'package:why_two_screen/presentation/view_model/final_screen_viewmodel.dart';
 import 'final_screen.dart';
 import 'image_print_screen.dart';
@@ -61,7 +62,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
                           create: (context) => FinalScreenViewModel(
-                              PhotoApiRepositoryImpl(PixabayApi())),
+                              GetPhotosUseCase(PhotoApiRepositoryImpl(PixabayApi()))),
                           child: const FinalScreen(),
                         ),
                       ));

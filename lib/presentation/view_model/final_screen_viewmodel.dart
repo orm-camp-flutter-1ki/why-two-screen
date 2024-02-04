@@ -1,25 +1,24 @@
 import 'package:flutter/cupertino.dart';
-import 'package:why_two_screen/data/data_source/result.dart';
-import 'package:why_two_screen/data/repository/photo_api_repository_impl.dart';
+import 'package:why_two_screen/domain/use_case/get_photos_use_case.dart';
 import 'package:why_two_screen/presentation/view_model/final_screen_state.dart';
 
 import '../../domain/model/photo.dart';
 
 class FinalScreenViewModel with ChangeNotifier {
-  final PhotoApiRepositoryImpl repository;
+  final GetPhotosUseCase getPhotosUseCase;
 
-  FinalScreenViewModel(this.repository);
+  FinalScreenViewModel(this.getPhotosUseCase);
 
   FinalScreenState _state = FinalScreenState([], false);
-
   FinalScreenState get state => _state;
+
 
   Future<void> loadIcon(String query) async {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 3));
-    final List<Photo> items = await repository.getData(query);
+    await Future.delayed(const Duration(seconds: 1));
+    final List<Photo> items = await getPhotosUseCase.execute(query);
 
     _state = state.copyWith(items: items);
     notifyListeners();

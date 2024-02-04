@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:why_two_screen/data/di/image_di.dart';
 import 'package:why_two_screen/presentation/page/main_screen.dart';
 
 void main() {
+  diSetup();
   runApp(const MyApp());
 }
 
