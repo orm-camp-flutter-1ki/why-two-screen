@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/main/main_screen.dart';
+import 'package:why_two_screen/data/di/image_di.dart';
+import 'package:why_two_screen/presentation/page/main_screen.dart';
 
 void main() {
+  diSetup();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainScreen(),
+      home: MainScreen(),
     );
   }
 }
-

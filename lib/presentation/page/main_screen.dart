@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:why_two_screen/detail/detail_screen.dart';
+
+import 'detail_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
