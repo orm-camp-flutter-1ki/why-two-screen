@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:why_two_screen/data/data_source/result.dart';
 import 'package:why_two_screen/data/repository/photo_api_repository_impl.dart';
+import 'package:why_two_screen/presentation/view_model/final_screen_state.dart';
 
 import '../../domain/model/photo.dart';
 
@@ -8,27 +10,22 @@ class FinalScreenViewModel with ChangeNotifier {
 
   FinalScreenViewModel(this.repository);
 
-  List<Photo> _items = [];
+  FinalScreenState _state = FinalScreenState([], false);
 
-  List<Photo> get items => _items;
+  FinalScreenState get state => _state;
 
-  set items(List<Photo> value) {
-    _items = value;
-    notifyListeners();
-  }
-
-  bool _isLoading = false;
-
-  bool get isLoading => _isLoading;
 
   Future<void> loadIcon(String query) async {
-    _isLoading = true;
+    _state = state.copyWith(isLoading: true);
     notifyListeners();
 
     await Future.delayed(const Duration(seconds: 3));
-    final items = await repository.getData(query);
-    _items = items;
-    _isLoading = false;
+    final List<Photo>items = await repository.getData(query);
+
+          _state = state.copyWith(items: items);
+    notifyListeners();
+
+    _state = state.copyWith(isLoading: false);
     notifyListeners();
   }
 }

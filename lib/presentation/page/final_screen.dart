@@ -21,6 +21,7 @@ class _FinalScreenState extends State<FinalScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<FinalScreenViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -47,7 +48,7 @@ class _FinalScreenState extends State<FinalScreen> {
               },
               child: const Text('출력'))
         ]),
-        viewModel.isLoading
+        state.isLoading
             ? const Center(child: CircularProgressIndicator())
             : Expanded(
                 child: Container(
@@ -57,7 +58,7 @@ class _FinalScreenState extends State<FinalScreen> {
                     border: Border.all(color: Colors.black),
                   ),
                   child: ListView(
-                    children: viewModel.items
+                    children: state.items
                         .map(
                           (e) => ListTile(
                             leading: Container(
