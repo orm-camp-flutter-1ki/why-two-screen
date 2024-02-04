@@ -14,15 +14,14 @@ class FinalScreenViewModel with ChangeNotifier {
 
   FinalScreenState get state => _state;
 
-
   Future<void> loadIcon(String query) async {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
     await Future.delayed(const Duration(seconds: 3));
-    final List<Photo>items = await repository.getData(query);
+    final List<Photo> items = await repository.getData(query);
 
-          _state = state.copyWith(items: items);
+    _state = state.copyWith(items: items);
     notifyListeners();
 
     _state = state.copyWith(isLoading: false);
