@@ -62,7 +62,8 @@ class _DetailScreenState extends State<DetailScreen> {
                       MaterialPageRoute(
                         builder: (context) => ChangeNotifierProvider(
                           create: (context) => FinalScreenViewModel(
-                              GetPhotosUseCase(PhotoApiRepositoryImpl(PixabayApi()))),
+                              GetPhotosUseCase(
+                                  PhotoApiRepositoryImpl(PixabayApi()))),
                           child: const FinalScreen(),
                         ),
                       ));

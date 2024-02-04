@@ -10,8 +10,8 @@ class FinalScreenViewModel with ChangeNotifier {
   FinalScreenViewModel(this.getPhotosUseCase);
 
   FinalScreenState _state = FinalScreenState([], false);
-  FinalScreenState get state => _state;
 
+  FinalScreenState get state => _state;
 
   Future<void> loadIcon(String query) async {
     _state = state.copyWith(isLoading: true);

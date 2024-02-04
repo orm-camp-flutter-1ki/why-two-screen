@@ -8,8 +8,8 @@ import 'package:why_two_screen/presentation/view_model/final_screen_viewmodel.da
 final getIt = GetIt.instance;
 
 void diSetup() {
-  getIt.registerSingleton<PhotoApiRepository>(PhotoApiRepositoryImpl(PixabayApi()));
-  getIt.registerFactory<FinalScreenViewModel>(() => FinalScreenViewModel(GetPhotosUseCase(PhotoApiRepositoryImpl(PixabayApi()))));
+  getIt.registerSingleton<PhotoApiRepository>(
+      PhotoApiRepositoryImpl(PixabayApi()));
+  getIt.registerFactory<FinalScreenViewModel>(() => FinalScreenViewModel(
+      GetPhotosUseCase(PhotoApiRepositoryImpl(PixabayApi()))));
 }
-
-
